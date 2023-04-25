@@ -15,8 +15,10 @@
 "----------------------------------------------------------------------
 if !exists('g:bundle_group')
 	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
-	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc']
+	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'echodoc']
 	let g:bundle_group += ['leaderf']
+	let g:bundle_group += ['autopopmenu']
+	"let g:bundle_group += ['ale']
 endif
 
 
@@ -119,11 +121,15 @@ if index(g:bundle_group, 'basic') >= 0
 	" Git 支持
 	Plug 'tpope/vim-fugitive'
 
+	Plug 'zivyangll/git-blame.vim'
+	noremap <Leader>s :<C-u>call gitblame#echo()<CR>
+
+
 	" 使用 ALT+E 来选择窗口
 	nmap <m-e> <Plug>(choosewin)
 
 	" 默认不显示 startify
-	let g:startify_disable_at_vimenter = 1
+	let g:startify_disable_at_vimenter = 0
 	let g:startify_session_dir = '~/.vim/session'
 
 	" 使用 <space>ha 清除 errormarker 标注的错误
@@ -246,6 +252,7 @@ if index(g:bundle_group, 'textobj') >= 0
 
 	" 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
 	Plug 'bps/vim-textobj-python', {'for': 'python'}
+	let g:python_highlight_all = 1
 
 	" 提供 uri/url 的文本对象，iu/au 表示
 	Plug 'jceb/vim-textobj-uri'
@@ -308,15 +315,25 @@ endif
 if index(g:bundle_group, 'nerdtree') >= 0
 	Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
 	Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-	let g:NERDTreeMinimalUI = 1
+	let g:NERDTreeMinimalUI = 0
 	let g:NERDTreeDirArrows = 1
 	let g:NERDTreeHijackNetrw = 0
 	noremap <space>nn :NERDTree<cr>
 	noremap <space>no :NERDTreeFocus<cr>
 	noremap <space>nm :NERDTreeMirror<cr>
 	noremap <space>nt :NERDTreeToggle<cr>
+	noremap <space>nf :NERDTreeFind<cr>
 endif
 
+
+"----------------------------------------------------------------------
+" quickhl
+"----------------------------------------------------------------------
+	nmap <Space>w <Plug>(quickhl-manual-this-whole-word)
+	xmap <Space>w <Plug>(quickhl-manual-this-whole-word)
+
+	nmap <Space>c <Plug>(quickhl-manual-clear)
+	vmap <Space>c <Plug>(quickhl-manual-clear)
 
 "----------------------------------------------------------------------
 " LanguageTool 语法检查
@@ -455,6 +472,8 @@ if index(g:bundle_group, 'leaderf') >= 0
 
 		" 显示绝对路径
 		let g:Lf_ShowRelativePath = 0
+		" 选中字符串搜索
+		xnoremap <leader>f :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 
 		" 隐藏帮助
 		let g:Lf_HideHelp = 1
@@ -466,11 +485,26 @@ if index(g:bundle_group, 'leaderf') >= 0
 					\ }
 
 		" MRU 文件忽略扩展名
-		let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.bak', '*.tmp', '*.dll']
+		let g:Lf_MruFileExclude = ['*.so', '*.exe', '*.py[co]', '*.sw?', '~$*', '*.tmp', '*.dll']
 		let g:Lf_StlColorscheme = 'powerline'
 
 		" 禁用 function/buftag 的预览功能，可以手动用 p 预览
 		let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+
+		" 打开vim第一次启动Leaderf 将会刷新缓存(手动F5刷新)
+		let g:Lf_UseCache = 0
+		" 每次启动Leaderf都将刷新缓存
+		"let g:Lf_UseCache = 0
+		"let g:Lf_UseMemoryCache = 0
+
+		" gtags 支持
+		let g:Lf_GtagsHigherThan6_6_2 = 0
+		let g:Lf_Gtagslabel = 'native-pygments'
+		noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+		noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+		noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+		noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+		noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 
 		" 使用 ESC 键可以直接退出 leaderf 的 normal 模式
 		let g:Lf_NormalMap = {
@@ -608,4 +642,29 @@ let g:ycm_filetype_whitelist = {
 			\ "ps1":1,
 			\ }
 
+
+"----------------------------------------------------------------------
+" auto-popmenu completion
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'autopopmenu') >= 0
+	" enable this plugin for filetypes, '*' for all files.
+	let g:apc_enable_ft = {'text':1, 'markdown':1, 'php':1 ,'*':1}
+
+	" source for dictionary, current or other loaded buffers, see ':help cpt'
+	set cpt=.,k,w,b
+
+	" don't select the first item.
+	set completeopt=menu,menuone,noselect
+
+	" suppress annoy messages.
+	set shortmess+=c
+
+	" dictionary
+	let g:vim_dict_dict = [
+		\ '~/.vim/bundle/vim-dict-master/dict',
+		\ '~/.config/nvim/dict',
+		\ ]
+	let g:vim_dict_config = {'html':'html,javascript,css', 'markdown':'text'}
+
+endif
 
