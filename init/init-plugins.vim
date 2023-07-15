@@ -44,16 +44,16 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 "----------------------------------------------------------------------
 
 " 全文快速移动，<leader><leader>f{char} 即可触发
-Plug 'easymotion/vim-easymotion'
+#Plug 'easymotion/vim-easymotion'
 
 " 文件浏览器，代替 netrw
-Plug 'justinmk/vim-dirvish'
+#Plug 'justinmk/vim-dirvish'
 
 " 表格对齐，使用命令 Tabularize
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+#@Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 
 " Diff 增强，支持 histogram / patience 等更科学的 diff 算法
-Plug 'chrisbra/vim-diff-enhanced'
+#Plug 'chrisbra/vim-diff-enhanced'
 
 
 "----------------------------------------------------------------------
@@ -97,10 +97,10 @@ if index(g:bundle_group, 'basic') >= 0
 	Plug 'mhinz/vim-startify'
 
 	" 一次性安装一大堆 colorscheme
-	Plug 'flazz/vim-colorschemes'
+	#Plug 'flazz/vim-colorschemes'
 
 	" 支持库，给其他插件用的函数库
-	Plug 'xolox/vim-misc'
+	#Plug 'xolox/vim-misc'
 
 	" 用于在侧边符号栏显示 marks （ma-mz 记录的位置）
 	Plug 'kshenoy/vim-signature'
@@ -110,13 +110,13 @@ if index(g:bundle_group, 'basic') >= 0
 
 	" 根据 quickfix 中匹配到的错误信息，高亮对应文件的错误行
 	" 使用 :RemoveErrorMarkers 命令或者 <space>ha 清除错误
-	Plug 'mh21/errormarker.vim'
+	#Plug 'mh21/errormarker.vim'
 
 	" 使用 ALT+e 会在不同窗口/标签上显示 A/B/C 等编号，然后字母直接跳转
-	Plug 't9md/vim-choosewin'
+	#Plug 't9md/vim-choosewin'
 
 	" 提供基于 TAGS 的定义预览，函数参数预览，quickfix 预览
-	Plug 'skywind3000/vim-preview'
+	#Plug 'skywind3000/vim-preview'
 
 	" Git 支持
 	Plug 'tpope/vim-fugitive'
@@ -156,25 +156,25 @@ endif
 if index(g:bundle_group, 'enhanced') >= 0
 
 	" 用 v 选中一个区域后，ALT_+/- 按分隔符扩大/缩小选区
-	Plug 'terryma/vim-expand-region'
+	#Plug 'terryma/vim-expand-region'
 
 	" 快速文件搜索
-	Plug 'junegunn/fzf'
+	#Plug 'junegunn/fzf'
 
 	" 给不同语言提供字典补全，插入模式下 c-x c-k 触发
 	Plug 'asins/vim-dict'
 
 	" 使用 :FlyGrep 命令进行实时 grep
-	Plug 'wsdjeg/FlyGrep.vim'
+	#Plug 'wsdjeg/FlyGrep.vim'
 
 	" 使用 :CtrlSF 命令进行模仿 sublime 的 grep
-	Plug 'dyng/ctrlsf.vim'
+	#Plug 'dyng/ctrlsf.vim'
 
 	" 配对括号和引号自动补全
-	Plug 'Raimondi/delimitMate'
+	#Plug 'Raimondi/delimitMate'
 
 	" 提供 gist 接口
-	Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
+	#Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
 	
 	" ALT_+/- 用于按分隔符扩大缩小 v 选区
 	map <m-=> <Plug>(expand_region_expand)
@@ -236,22 +236,22 @@ endif
 if index(g:bundle_group, 'textobj') >= 0
 
 	" 基础插件：提供让用户方便的自定义文本对象的接口
-	Plug 'kana/vim-textobj-user'
+	#Plug 'kana/vim-textobj-user'
 
 	" indent 文本对象：ii/ai 表示当前缩进，vii 选中当缩进，cii 改写缩进
-	Plug 'kana/vim-textobj-indent'
+	#Plug 'kana/vim-textobj-indent'
 
 	" 语法文本对象：iy/ay 基于语法的文本对象
-	Plug 'kana/vim-textobj-syntax'
+	#Plug 'kana/vim-textobj-syntax'
 
 	" 函数文本对象：if/af 支持 c/c++/vim/java
-	Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
+	#Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 
 	" 参数文本对象：i,/a, 包括参数或者列表元素
-	Plug 'sgur/vim-textobj-parameter'
+	#Plug 'sgur/vim-textobj-parameter'
 
 	" 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
-	Plug 'bps/vim-textobj-python', {'for': 'python'}
+	#Plug 'bps/vim-textobj-python', {'for': 'python'}
 	let g:python_highlight_all = 1
 
 	" 提供 uri/url 的文本对象，iu/au 表示
@@ -265,25 +265,25 @@ endif
 if index(g:bundle_group, 'filetypes') >= 0
 
 	" powershell 脚本文件的语法高亮
-	Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
+	#Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
 
 	" lua 语法高亮增强
-	Plug 'tbastos/vim-lua', { 'for': 'lua' }
+	#Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
 	" C++ 语法高亮增强，支持 11/14/17 标准
 	Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
 	" 额外语法文件
-	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
+	#Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
 	" python 语法文件增强
-	Plug 'vim-python/python-syntax', { 'for': ['python'] }
+	#Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
 	" rust 语法增强
-	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+	#Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 	" vim org-mode 
-	Plug 'jceb/vim-orgmode', { 'for': 'org' }
+	#Plug 'jceb/vim-orgmode', { 'for': 'org' }
 endif
 
 
