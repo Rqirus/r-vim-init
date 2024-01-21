@@ -26,6 +26,21 @@ set autoindent
 " 打开 C/C++ 语言缩进优化
 set cindent
 
+" 临时方法
+" 设置tab缩进与空格缩进
+function! Blk()
+    set tabstop=1
+    set softtabstop=1
+    set expandtab
+endfunction
+
+call Blk()
+
+function! Tab()
+    set shiftwidth=8
+    set noexpandtab
+endfunction
+
 " Windows 禁用 ALT 操作菜单（使得 ALT 可以用到 Vim里）
 set winaltkeys=no
 

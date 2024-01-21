@@ -474,6 +474,8 @@ if index(g:bundle_group, 'leaderf') >= 0
 		let g:Lf_ShowRelativePath = 0
 		" 选中字符串搜索
 		xnoremap <leader>f :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+		" 搜索字符串
+		noremap <m-f> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
 
 		" 隐藏帮助
 		let g:Lf_HideHelp = 1
