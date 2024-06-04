@@ -330,4 +330,23 @@ else
 				\ '<root>' <cr>
 endif
 
+function! OpenFileWith()
+    " 获取当前打开文件的绝对路径
+    let current_file = expand('%:p')
 
+    " 替换路径前缀
+    let converted_path = substitute(current_file, '^/home/', 'Z:/', '')
+
+    " 将路径转换为Windows格式
+    let windows_path = substitute(converted_path, '/', '\\', 'g')
+    let line = line('.')
+
+    " 输出转换后的路径
+    echo windows_path
+    let python_command = 'python3 /home/cmh/wcmd.py "C:\Program Files (x86)\Notepad++\notepad++.exe" -n'.line." ". shellescape(windows_path)
+    "echo python_command
+    let python_output = system(python_command)
+endfunction
+
+
+noremap <m-o> :call OpenFileWith() <cr>

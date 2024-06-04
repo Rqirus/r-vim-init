@@ -34,3 +34,19 @@ augroup PythonTab
 augroup END
 
 
+" 4空格和tab自动识别
+"set expandtab ts=4 sw=4 ai
+" 临时方案
+function! Blk()
+    set tabstop=4
+    set softtabstop=4
+    set expandtab
+endfunction
+
+"Change to tab mode
+function! Tab()
+    set shiftwidth=8
+    set noexpandtab
+endfunction
+
+
