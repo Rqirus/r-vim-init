@@ -111,6 +111,10 @@ set noundofile
 " 创建目录，并且忽略可能出现的警告
 silent! call mkdir(expand('~/.vim/tmp'), "p", 0755)
 
+" windows 平台与系统剪切板关联
+if has('win32') || has('win64')  
+	set clipboard=unnamed
+endif
 
 "----------------------------------------------------------------------
 " 配置微调

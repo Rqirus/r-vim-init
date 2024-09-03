@@ -57,7 +57,7 @@ set ttimeoutlen=50
 set ruler
 
 " 光标始终在屏幕中央
-set scrolloff=999
+set scrolloff=4
 
 set updatetime=1000
 

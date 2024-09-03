@@ -18,6 +18,7 @@ if !exists('g:bundle_group')
 	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'echodoc']
 	let g:bundle_group += ['leaderf']
 	let g:bundle_group += ['autopopmenu']
+	let g:bundle_group += ['quickhl']
 	"let g:bundle_group += ['ale']
 endif
 
@@ -329,11 +330,14 @@ endif
 "----------------------------------------------------------------------
 " quickhl
 "----------------------------------------------------------------------
+if index(g:bundle_group, 'quickhl') >= 0
+	Plug 't9md/vim-quickhl'
 	nmap <Space>w <Plug>(quickhl-manual-this-whole-word)
 	xmap <Space>w <Plug>(quickhl-manual-this-whole-word)
 
 	nmap <Space>c <Plug>(quickhl-manual-clear)
 	vmap <Space>c <Plug>(quickhl-manual-clear)
+endif
 
 "----------------------------------------------------------------------
 " LanguageTool 语法检查
